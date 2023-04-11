@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>D3.js Bar Chart</title>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <script>
+       let filename = 'Stock.csv';
+    let fileNameGDP= 'GDP.csv';
+
+        d3.csv(filename).then(function(loadedData) {
+            let data = [];
+            let labels= [];
+
+            for (let i=0; i<loadedData.length; i++) {
+                let year = loadedData[i].year;
+                labels.push(year);
+                let meanTemp = loadedData [i].tmax;
+                data.push(meanTemp);
+            }
+
+            let options = {
+                type: 'bar',
+                data:{
+                    labels:labels,
+                    datasets: [{
+                        data: data,
+                        backgroundColor: 'rgb(100,100,100)', // added backgroundColor property
+                        borderColor: 'rgb(100,100,100)',
+                        borderWidth: 1 // added borderWidth property
+                    }]
+                },
+                options: {
+                    scales: {
+                        x: {
+                            ticks: {
+                                beginAtZero: true // added beginAtZero property to ensure x-axis starts at zero
+                            }
+                        }
+                    }
+                }
+                //Vertical Bar Chart
+                //options: {
+                      //indexAxis: 'y', // added indexAxis property with the value 'y' to make it a vertical bar chart
+                      //scales: {
+                          //y: {
+                              //ticks: {
+                                  //beginAtZero: true // added beginAtZero property to ensure y-axis starts at zero
+                              //}
+                          //}
+                      //}
+                  //}
+            };
+
+            let chart = new Chart(document.getElementById('canvas'), options);
+        });
+    </script>
+    <script>
+        src="script.js"
+    </script>
+</body>
+</html>
