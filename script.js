@@ -12,7 +12,7 @@ let fileNameGDP= 'GDP.csv';
 d3.csv(filename).then(function(loadedData) {
     let data = [];
     let labels= [];
-    console.log(loadedData);
+    //console.log(loadedData);
     for (let i=0; i<loadedData.length; i++) {
 
         //console.log(loadedData[i]);
