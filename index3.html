@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>GDP vs Stocks</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="./app3.js"></script>
+    <link rel="stylesheet" type="text/css" href="./style.css">
+  </head>
+  <body>
+    <h1>GDP vs Stocks</h1>
+    <div class="dropdowns">
+      <label for="dropdown-GDP">GDP:</label>
+      <select id="dropdown-GDP">
+        <option value="GDP">Select GDP</option> 
+        <option value="Date">Select DATE</option>  
+      </select>
+      <label for="dropdown-Stock">Stock:</label>
+      <select id="dropdown-Stock">
+        <option value="Microsoft">Microsoft</option>
+        <option value="AMZN">Amazon</option>
+        <option value="AAPL">Apple</option>
+        <option value="GOOGL">Google</option>
+        <option value="NK">Nike</option>
+      </select>
+    </div>
+    <div id="plot"></div>
+  </body>
+</html>
