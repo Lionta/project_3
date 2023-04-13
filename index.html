@@ -18,7 +18,7 @@
     integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
     crossorigin=""></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-smooth-state/0.7.2/jquery.smoothState.min.js"></script>
+  <script src="./jquery.smoothState.js"></script>
   <script src="https://d3js.org/d3.v5.min.js"></script>
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
   <script src="./app.js"></script>
@@ -26,39 +26,40 @@
   <!-- Our CSS -->
   <link rel="stylesheet" type="text/css" href="style.css">
 </head>
-<body>
-    <div id="navbar">
-        <ul><a href="./index.html">Home</a></ul>
-        <ul><a href="./page2.html">Page 2</a></ul>
-    </div>
-    <div id="main" class="m-scene">
-        <div class="scene-element scene-element--fadeinup">
-            <p>This is the first set of paragraphs</p>
-            <p>This is the second set of paragraphs</p>
-        </div>
-    </div>
+<body onload="optionChanged('Microsoft', 1)">
 
-    <div class="container">
+
+    <div class="container m-scene">
       <div class="row">
-        <div class="col-md-12 jumbotron text-center">
-          <h1>Belly Button Biodiversity Dashboard</h1>
+        <div class="col-md-12 jumbotron text-center scene-element scene-element--fadeinright">
+          <h1>Stock Price Over Time</h1>
           <p>Use the interactive charts below to explore the dataset</p>
         </div>
       </div>
       <div class="row">
         <div class="col-md-2">
           <div class="well">
-            <h5>Test Subject ID No.:</h5>
-            <select id="selDataset" onchange="optionChanged(this.value)"></select>
+            <h5>Stock Selection:</h5>
+            <select id="selDataset" onchange="optionChanged(this.value, 1)">
+              <option value="Microsoft">Microsoft</option>
+              <option value="Apple">Apple</option>
+              <option value="Amazon">Amazon</option>
+              <option value="IBM">IBM</option>
+              <option value="Nike">Nike</option>
+            </select>
           </div>
           <div class="panel panel-primary">
             <div class="panel-heading">
-              <h3 class="panel-title">Demographic Info</h3>
+              <h3 class="panel-title">Navigation</h3>
+
             </div>
-            <div id="sample-metadata" class="panel-body"></div>
+            <div id="sample-metadata" class="panel-body">
+              <ul><a href="./index.html">Home</a></ul>
+              <ul><a href="./page2.html">Page 2</a></ul>
+            </div>
           </div>
         </div>
-        <div class="col-md-5">
+        <div class="col-md-5 scene-element scene-element--fadeinright">
           <div id="line"></div>
         </div>
         <div class="col-md-5">
