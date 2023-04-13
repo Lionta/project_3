@@ -95,6 +95,51 @@ function createChart(id, type){
                 yaxis: 'y2'
               };
               const layout = {
+                updatemenus: [
+                  {
+                    buttons: [
+                      {
+                        method: 'update',
+                        args: [{'visible': [true, false, false, false, false, false]}, {'title': 'Microsoft'}],
+                        label: 'Microsoft'
+                      },
+                      {
+                        method: 'update',
+                        args: [{'visible': [false, true, false, false, false, false]}, {'title': 'Apple'}],
+                        label: 'Apple'
+                      },
+                      {
+                        method: 'update',
+                        args: [{'visible': [false, false, true, false, false, false]}, {'title': 'Amazon'}],
+                        label: 'Amazon'
+                      },
+                      {
+                        method: 'update',
+                        args: [{'visible': [false, false, false, true, false, false]}, {'title': 'IBM'}],
+                        label: 'IBM'
+                      },
+                      {
+                        method: 'update',
+                        args: [{'visible': [false, false, false, false, true, false]}, {'title': 'Nike'}],
+                        label: 'Nike'
+                      },
+                      {
+                        method: 'update',
+                        args: [{'visible': [false, false, false, false, false, true]}, {'title': 'GDP'}],
+                        label: 'GDP'
+                      },
+                      {
+                        method: 'update',
+                        args: [{'visible': [true, true, true, true, true, true]}, {'title': 'All lines'}],
+                        label: 'All'
+                      },
+                    ],
+                    direction: 'down',
+                    showactive: true,
+                    x: 0.05,
+                    y: 1.2
+                  }
+                ],
                 title: "Stocks and GDP",
                 xaxis: {
                   title: "Date"
