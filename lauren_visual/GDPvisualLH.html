@@ -8,7 +8,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
   </head>
   <body>
-    <h1>GDP Change Over Time</h1>
+    <h1>USA GDP Change Over Time</h1>
     <canvas id="myChart" width="400" height="200"></canvas>
 
     <script>
@@ -58,7 +58,7 @@
 
       async function getData() {
         // const response = await fetch('testdata.csv');
-        const response = await fetch('GDP.csv');
+        const response = await fetch('GDP_LH.csv');
         const data = await response.text();
         const date = [];
         const value = [];
