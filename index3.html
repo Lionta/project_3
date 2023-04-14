@@ -1,4 +1,28 @@
 <!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Stocks vs GDP</title>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+  <h1>Stocks vs GDP</h1>
+  <div>
+    <label for="dropdown-GDP">Select GDP Year:</label>
+    <select id="dropdown-GDP"></select>
+  </div>
+  <div>
+    <label for="dropdown-Stock">Select Stock:</label>
+    <select id="dropdown-Stock"></select>
+  </div>
+  <div id="plot"></div>
+
+  <script src="app3.js"></script>
+</body>
+</html>
+
+
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8">
@@ -8,12 +32,8 @@
     <link rel="stylesheet" type="text/css" href="./style.css">
   </head>
   <body>
-    <h1>GDP vs Stocks</h1>
+    <h1>Stocks over time</h1>
     <div class="dropdowns">
-      <label for="dropdown-GDP">GDP:</label>
-      <select id="dropdown-GDP">
-        <option value="GDP">Select GDP</option> 
-        <option value="Date">Select DATE</option>  
       </select>
       <label for="dropdown-Stock">Stock:</label>
       <select id="dropdown-Stock">

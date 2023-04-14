@@ -20,7 +20,7 @@ fetch(gdpUrl)
     };
 
     // Data trace array
-    let traceData = [trace1];
+    //let traceData = [trace1];
 
     // Fetch the stocks JSON data
     fetch(stocksUrl)
@@ -92,7 +92,7 @@ fetch(gdpUrl)
           Plotly.newPlot('plot', data, layout);
         };
 
-        dropdownGDP.addEventListener('change', updateChart);
+        //dropdownGDP.addEventListener('change', updateChart);
         dropdownStock.addEventListener('change', updateChart);
         updateChart();
       })
