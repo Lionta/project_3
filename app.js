@@ -1,6 +1,6 @@
 // Create the URL 
-const stocksurl = "Stocks_clean.csv";
-const gdpurl = "GDP_clean.csv";
+const stocksurl = "./Stocks_clean.csv";
+const gdpurl = "./GDP_clean.csv";
 
 // Create a function to contain all the code that will need to happen each time the dropdown changes. 
 function createChart(id, type){
