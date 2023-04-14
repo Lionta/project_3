@@ -1,96 +1,178 @@
-mergedFile = "Dataset.csv"
+// Create the URL 
+const stocksurl = "Stocks_clean.csv";
+const gdpurl = "GDP_clean.csv";
 
-var msft = []
-var appl = []
-var ibm = []
-var amzn = []
-var nke = []
-var dates = []
+// Create a function to contain all the code that will need to happen each time the dropdown changes. 
+function createChart(id, type){
+    if(type == 1){
+        d3.csv(stocksurl).then(function(data){
+            // Filter the data for only the selected ID
+            const filteredData = data.map(function(d) {
+                return {
+                "Date": d['date'],
+                "Value": d[id]
+                };
+            });
 
-// inital function to display all 5 stocks and the GDP
+            // Create the trace for the line chart
+            var trace = {
+                x: filteredData.map(function(d) { return d.Date; }),
+                y: filteredData.map(function(d) { return d.Value; }),
+                type: 'line',
+                line: {
+                    color: getRandomColor()
+                }
+            };
 
-function init() {
-    d3.csv("Stock.csv").then(function(data) {
-        // `data` is now an array of JavaScript objects
-        // Convert the data to a JSON string
-        var jsonData = JSON.stringify(data);
-        
-        // Do something with the JSON data, such as output it to the console
-        //console.log(jsonData);
-    
-        for (var i = 0; i < data.length; i++) {
-            // Access the value of the "Microsoft Open" property using dot notation
-                msft.push(data[i]["Microsoft Open"])
-                dates.push(data[i]["Date"])
-                appl.push(data[i]["Apple Open"])
-                ibm.push(data[i]["IBM Open"])
-                amzn.push(data[i]["Amazon Open"])
-                nke.push(data[i]["Nike Open"])
-            
-            // Do something with the value, such as output it to the console
-            
-          }
-    
-        let trace1 = {
-            x: dates,
-            y: msft,
-            type: "line",
-            color:"blue",
-            name: "Microsoft"
-        };
-    
-        let trace2 = {
-            x: dates,
-            y: appl,
-            type: "line",
-            color:"red",
-            name:"Apple"
-        };
+            // Create the data array for the plot
+            var data1 = [trace];
 
-        let trace3 = {
-            x: dates,
-            y: ibm,
-            type: "line",
-            color:"red",
-            name:"IBM"
+            // Configuring the layout of the line chart
+            var layout = {
+                title: id+ " Stock Price",
+                xaxis: { title: "Date" },
+                yaxis: { title: "Price" },
+                width: 900,
+                height: 600
+            };
+
+            // Plotting the line chart
+            Plotly.newPlot("line", data1, layout);
+
+    });} else if(type == 3) {
+        d3.csv(gdpurl).then(function(data){
+          // get the x-axis limits using d3.extent
+        var xLimits = d3.extent(data, function(d) { return d.date; });
+
+        // create a Plotly trace for the GDP data
+        var trace1 = {
+            x: data.map(function(d) { return d.date; }),
+            y: data.map(function(d) { return d.GDP; }),
+            mode: 'lines',
+            name: 'GDP'
         };
 
-        let trace4 = {
-            x: dates,
-            y: amzn,
-            type: "line",
-            color:"red",
-            name:"Amazon"
+        // create a Plotly layout with x-axis range set to the date extent
+        var layout = {
+            xaxis: {
+            range: xLimits
+            },
+            yaxis: {
+            title: 'GDP'
+            },
+            width: 900,
+            height: 600
         };
 
-        let trace5 = {
-            x: dates,
-            y: nke,
-            type: "line",
-            color:"red",
-            name:"Nike"
-        };
+        // create the Plotly chart
+        Plotly.newPlot('gdp', [trace1], layout);
 
-    
-        traceLine = [trace1,trace2,trace3,trace4,trace5]
-    
-    
-        // plot the bar chart
-        Plotly.newPlot("bar", traceLine)  
-      });
-    getData();
-
+    })}else if(type == 2){
+        d3.csv(stocksurl).then(function(stocks) {
+            const companies = ["Microsoft", "Apple", "Amazon", "IBM", "Nike"];
+            const traces = [];
+          
+            companies.forEach(function(company) {
+              const trace = {
+                x: stocks.map(function(d) { return d.date; }),
+                y: stocks.map(function(d) { return d[company]; }),
+                type: "scatter",
+                mode: "lines",
+                name: company
+              };
+              traces.push(trace);
+            });
+          
+            Plotly.d3.csv(gdpurl, function(gdp) {
+                var validGdpDates = new Set(stocks.map(function(d) { return d.date; }));
+                gdp = gdp.filter(function(d) { return validGdpDates.has(d.date); });
+              const gdpTrace = {
+                x: gdp.map(function(d) { return d.date; }),
+                y: gdp.map(function(d) { return d.GDP; }),
+                type: "scatter",
+                mode: "lines",
+                name: "GDP",
+                yaxis: 'y2'
+              };
+              const layout = {
+                updatemenus: [
+                  {
+                    buttons: [
+                      {
+                        method: 'update',
+                        args: [{'visible': [true, false, false, false, false, false]}, {'title': 'Microsoft'}],
+                        label: 'Microsoft'
+                      },
+                      {
+                        method: 'update',
+                        args: [{'visible': [false, true, false, false, false, false]}, {'title': 'Apple'}],
+                        label: 'Apple'
+                      },
+                      {
+                        method: 'update',
+                        args: [{'visible': [false, false, true, false, false, false]}, {'title': 'Amazon'}],
+                        label: 'Amazon'
+                      },
+                      {
+                        method: 'update',
+                        args: [{'visible': [false, false, false, true, false, false]}, {'title': 'IBM'}],
+                        label: 'IBM'
+                      },
+                      {
+                        method: 'update',
+                        args: [{'visible': [false, false, false, false, true, false]}, {'title': 'Nike'}],
+                        label: 'Nike'
+                      },
+                      {
+                        method: 'update',
+                        args: [{'visible': [false, false, false, false, false, true]}, {'title': 'GDP'}],
+                        label: 'GDP'
+                      },
+                      {
+                        method: 'update',
+                        args: [{'visible': [true, true, true, true, true, true]}, {'title': 'All lines'}],
+                        label: 'All'
+                      },
+                    ],
+                    direction: 'down',
+                    showactive: true,
+                    x: 0.05,
+                    y: 1.2
+                  }
+                ],
+                title: "Stocks and GDP",
+                xaxis: {
+                  title: "Date"
+                },
+                yaxis: {
+                  title: "Stock Price",
+                  side: "left"
+                },
+                yaxis2: {
+                  title: "GDP",
+                  side: "right",
+                  overlaying: "y"
+                },
+                width: 900,
+                height: 600
+              };
+              Plotly.newPlot("chart", traces.concat(gdpTrace), layout);
+            });
+          });
+    };
 };
 
 
+// Function called when changing dropdown menu
+function optionChanged(id, value){
 
-//update when user select diff stock from drop down menu 
+    // Call the createChart function to create the new charts with the new ID
+    createChart(id, value);
+}
 
-function newLine(newdata) {
-    Plotly.restyle("line", "values", [newdata]);
-  }
-
-init();
-
-
-
+function getRandomColor() {
+    var r = Math.floor(Math.random() * 256);
+    var g = Math.floor(Math.random() * 256);
+    var b = Math.floor(Math.random() * 256);
+    return `rgb(${r}, ${g}, ${b})`;
+};
