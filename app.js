@@ -83,7 +83,7 @@ function createChart(id, type){
               traces.push(trace);
             });
           
-            Plotly.d3.csv(gdpurl).then(function(gdp) {
+            d3.csv(gdpurl).then( function(gdp) {
                 var validGdpDates = new Set(stocks.map(function(d) { return d.date; }));
                 gdp = gdp.filter(function(d) { return validGdpDates.has(d.date); });
               const gdpTrace = {
